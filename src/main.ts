@@ -6,6 +6,7 @@ import { AppComponent } from './app/app.component';
 import { ROUTES } from './app/routes';
 import { environment } from './environments/environment';
 import { authHttpInterceptorFn, provideAuth0 } from '@auth0/auth0-angular';
+import { customInterceptor } from './app/interceptors/myInterceptor';
 
 if (environment.production) {
   enableProdMode();
@@ -14,7 +15,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers:[
     provideRouter(ROUTES),
-    provideHttpClient(withInterceptors([authHttpInterceptorFn])),
+    provideHttpClient(withInterceptors([customInterceptor,authHttpInterceptorFn])),
     provideAuth0({
       ...environment.auth0,
       httpInterceptor: {
